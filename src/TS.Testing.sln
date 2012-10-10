@@ -1,7 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{9F4BA678-4087-4044-BC07-D0DF08B97474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.UnitTest", "Testing.UnitTest\Testing.UnitTest.csproj", "{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F4BA678-4087-4044-BC07-D0DF08B97474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F4BA678-4087-4044-BC07-D0DF08B97474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F4BA678-4087-4044-BC07-D0DF08B97474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F4BA678-4087-4044-BC07-D0DF08B97474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
