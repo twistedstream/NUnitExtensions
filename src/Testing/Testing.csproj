@@ -60,11 +60,15 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ComponentTestBase.cs" />
+    <Compile Include="ComponentWithInterfaceTestBase.cs" />
     <Compile Include="ContainsState.cs" />
     <Compile Include="ContainsStateConstraint.cs" />
     <Compile Include="ContainsStateResult.cs" />
+    <Compile Include="DependencyContainerTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ContainsStateExtensions.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

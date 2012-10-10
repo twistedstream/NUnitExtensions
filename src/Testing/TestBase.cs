@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Impl;
 
-namespace TS.Testing.UnitTest
+namespace TS.Testing
 {
     /// <summary>
     /// Base class for all test classes.
@@ -42,6 +42,19 @@ namespace TS.Testing.UnitTest
         [TearDown]
         public virtual void TearDown()
         {
+        }
+
+        /// <summary>
+        /// Helper method that asserts that an <see cref="ArgumentException"/> gets thrown 
+        /// with the specified parameter name
+        /// when the specified code is executed.
+        /// </summary>
+        protected TArgumentException AssertThrowsArgumentException<TArgumentException>(TestDelegate code, string expectedParamName)
+            where TArgumentException : ArgumentException
+        {
+            var ex = Assert.Throws<TArgumentException>(code);
+            Assert.That(ex.ParamName, Is.EqualTo(expectedParamName));
+            return ex;
         }
     }
 }
