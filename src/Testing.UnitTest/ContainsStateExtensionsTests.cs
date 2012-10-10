@@ -52,6 +52,8 @@ namespace TS.Testing.UnitTest
                                     new object[] {(float) 1, (float) 2},
                                     new object[] {"foo", "bar"},
                                     new object[] {Guid.NewGuid(), Guid.NewGuid()},
+                                    new object[] {DateTime.MinValue, DateTime.MaxValue},
+                                    new object[] {TimeSpan.MinValue, TimeSpan.MaxValue},
                                 };
                 foreach (var @case in cases)
                 {

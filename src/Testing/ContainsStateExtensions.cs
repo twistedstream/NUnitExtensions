@@ -32,40 +32,47 @@ namespace TS.Testing
 
         private const string LocationDelimiter = "/";
 
+        private static HashSet<Type> _simpleTypes;
         private static HashSet<Type> SimpleTypes
         {
             get
             {
-                var types = new[]
-                                {
-                                    // primatives
-                                    typeof (bool),
-                                    typeof (byte),
-                                    typeof (sbyte),
-                                    typeof (short),
-                                    typeof (UInt16),
-                                    typeof (int),
-                                    typeof (UInt32),
-                                    typeof (long),
-                                    typeof (UInt64),
-                                    typeof (IntPtr),
-                                    typeof (UIntPtr),
-                                    typeof (char),
-                                    typeof (double),
-                                    typeof (float),
+                if (_simpleTypes == null)
+                {
+                    var types = new[]
+                                    {
+                                        // primatives
+                                        typeof (bool),
+                                        typeof (byte),
+                                        typeof (sbyte),
+                                        typeof (short),
+                                        typeof (UInt16),
+                                        typeof (int),
+                                        typeof (UInt32),
+                                        typeof (long),
+                                        typeof (UInt64),
+                                        typeof (IntPtr),
+                                        typeof (UIntPtr),
+                                        typeof (char),
+                                        typeof (double),
+                                        typeof (float),
 
-                                    // other
-                                    typeof (string),
-                                    typeof (Guid),
-                                };
+                                        // other
+                                        typeof (string),
+                                        typeof (Guid),
+                                        typeof (DateTime),
+                                        typeof (TimeSpan),
+                                    };
 
-                return new HashSet<Type>(
-                    // combine types above
-                    types
-                        // with the Nullables of all the value types
-                        .Concat(types
-                                    .Where(t => t.IsValueType)
-                                    .Select(t => typeof (Nullable<>).MakeGenericType(t))));
+                    _simpleTypes = new HashSet<Type>(
+                        // combine types above
+                        types
+                            // with the Nullables of all the value types
+                            .Concat(types
+                                        .Where(t => t.IsValueType)
+                                        .Select(t => typeof (Nullable<>).MakeGenericType(t))));
+                }
+                return _simpleTypes;
             }
         }
 
