@@ -60,6 +60,13 @@ namespace TS.Testing
             // Get valid instances for each parameter
             var values = GetDependencies().ToList();
 
+            // Make sure both collections are the same size
+            if (values.Count != constructorParameters.Length)
+                throw new NotSupportedException(
+                    string.Format("The number of values returned by GetParameters ({0}) does not match the number of constructor parameters on the component ({1}).",
+                                  values.Count,
+                                  constructorParameters.Length));
+
             // Build dictionary of parmeter names to dependency values
             var tuples = new List<Tuple<string, object>>();
             for (var index = 0; index < constructorParameters.Length; index++)
@@ -73,7 +80,7 @@ namespace TS.Testing
                         string.Format("Dependency value for parameter '{0}' cannot be null.",
                                       parameter.Name));
 
-                var tuple = new Tuple<string, object>(parameter.Name, value);
+                var tuple = Tuple.Create(parameter.Name, value);
                 tuples.Add(tuple);
             }
             return tuples.ToDictionary(s => s.Item1, s => s.Item2);
