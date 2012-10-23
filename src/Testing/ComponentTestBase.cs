@@ -95,9 +95,12 @@ namespace TS.Testing
             // Short-circuit pass if class only has a default (parameter-less) constructor
             if (!parameters.Any()) return;
 
-            // Enumerate through each parameter and create component with a null value
+            // Enumerate through each reference type parameter and create component with a null value
             foreach (var key in parameters.Keys)
             {
+                // skip parameter if it is not a reference type
+                if (parameters[key].GetType().IsValueType) continue;
+
                 var name = key;
 
                 // Build parameters that all are all dependencies except for the current parameter, which is null
