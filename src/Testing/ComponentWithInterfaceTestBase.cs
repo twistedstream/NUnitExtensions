@@ -24,6 +24,10 @@ namespace TS.Testing
             return base.CreateTarget();
         }
 
+        /// <summary>
+        /// Test that asserts that the <typeparamref name="TComponent"/> component class under test 
+        /// implements the specified <typeparamref name="TInterface" /> interface.
+        /// </summary>
         [Test]
         public void Class_should_implement_the_component_interface()
         {

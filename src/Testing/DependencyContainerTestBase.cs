@@ -16,6 +16,11 @@ namespace TS.Testing
         : ComponentTestBase<TDependencyContainer>
         where TDependencyContainer : class
     {
+        /// <summary>
+        /// A test that asserts that the instance under test exposes all of its dependencies 
+        /// (specified by the test class by overriding 
+        /// <see cref="ComponentTestBase{TComponent}.GetDependencies"/>) as properties.
+        /// </summary>
         [Test]
         public void Instances_should_expose_their_dependencies_as_properties()
         {

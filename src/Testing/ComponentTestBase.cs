@@ -86,6 +86,11 @@ namespace TS.Testing
             return tuples.ToDictionary(s => s.Item1, s => s.Item2);
         }
 
+        /// <summary>
+        /// A test that asserts that the instance under test requires all dependencies 
+        /// (specified by the test class by overriding <see cref="GetDependencies"/>) by 
+        /// injecting them through the constructor.
+        /// </summary>
         [Test]
         public void Instances_should_require_their_dependencies()
         {
