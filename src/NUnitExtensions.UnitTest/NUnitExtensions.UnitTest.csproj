@@ -8,8 +8,8 @@
     <ProjectGuid>{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TS.Testing.UnitTest</RootNamespace>
-    <AssemblyName>TS.Testing.UnitTest</AssemblyName>
+    <RootNamespace>TS.NUnitExtensions.UnitTest</RootNamespace>
+    <AssemblyName>TS.NUnitExtensions.UnitTest</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace TS.Testing.UnitTest
+namespace TS.NUnitExtensions.UnitTest
 {
     [TestFixture]
     public class ContainsStateExtensionsTests

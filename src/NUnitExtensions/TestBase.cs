@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Rhino.Mocks.Impl;
 
-namespace TS.Testing
+namespace TS.NUnitExtensions
 {
     /// <summary>
     /// Base class for all test classes.

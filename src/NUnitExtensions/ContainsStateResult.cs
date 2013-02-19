@@ -1,4 +1,4 @@
-﻿namespace TS.Testing
+﻿namespace TS.NUnitExtensions
 {
     /// <summary>
     /// The result of a call to <see cref="ContainsStateExtensions.ContainsState(object,object)"/>.

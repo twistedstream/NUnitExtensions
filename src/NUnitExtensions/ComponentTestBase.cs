@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
 
-namespace TS.Testing
+namespace TS.NUnitExtensions
 {
     /// <summary>
     /// A <see cref="TestBase"/> for test classes that need to test a component, 

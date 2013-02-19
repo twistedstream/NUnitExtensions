@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("TS.Testing")]
+[assembly: AssemblyTitle("TS.NUnitExtensions")]
 [assembly: AssemblyDescription("Helpers for writing unit tests")]
 [assembly: AssemblyConfiguration("")]
 [assembly: ComVisible(false)]

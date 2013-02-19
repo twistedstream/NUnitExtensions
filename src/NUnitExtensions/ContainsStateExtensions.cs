@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TS.Testing
+namespace TS.NUnitExtensions
 {
     /// <summary>
     /// Extension methods used by the <see cref="ContainsStateConstraint"/>.

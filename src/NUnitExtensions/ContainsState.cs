@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework.Constraints;
 
-namespace TS.Testing
+namespace TS.NUnitExtensions
 {
     /// <summary>
     /// Contains helper members for working with the <see cref="ContainsStateExtensions.ContainsState(object,object)"/> method.

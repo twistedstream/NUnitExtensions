@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace TS.Testing.UnitTest
+namespace TS.NUnitExtensions.UnitTest
 {
     [TestFixture]
     public class ContainsStateResultTests

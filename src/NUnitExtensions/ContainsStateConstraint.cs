@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework.Constraints;
 
-namespace TS.Testing
+namespace TS.NUnitExtensions
 {
     /// <summary>
     /// An NUnit <see cref="Constraint"/> that will execute the 
