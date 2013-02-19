@@ -66,7 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NUnitExtensions\Testing.csproj">
+    <ProjectReference Include="..\NUnitExtensions\NUnitExtensions.csproj">
       <Project>{9F4BA678-4087-4044-BC07-D0DF08B97474}</Project>
       <Name>Testing</Name>
     </ProjectReference>
