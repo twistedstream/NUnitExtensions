@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "NUnitExtensions\Testing.csproj", "{9F4BA678-4087-4044-BC07-D0DF08B97474}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitExtensions", "NUnitExtensions\NUnitExtensions.csproj", "{9F4BA678-4087-4044-BC07-D0DF08B97474}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.UnitTest", "NUnitExtensions.UnitTest\Testing.UnitTest.csproj", "{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitExtensions.UnitTest", "NUnitExtensions.UnitTest\NUnitExtensions.UnitTest.csproj", "{02E7E20B-DA3D-436B-82AB-61DCFC4E0C84}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{505BFE31-FF1A-48DE-A8D0-9429DC31325E}"
 	ProjectSection(SolutionItems) = preProject
