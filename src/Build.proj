@@ -81,8 +81,19 @@
     <MSBuild Projects="@(ProjectFiles)" />
   </Target>
 
+  <Target Name="RunUnitTest">
+    <CreateItem Include="$(MSBuildProjectDirectory)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
+      <Output TaskParameter="Include" ItemName="TestAssembly" />
+    </CreateItem>
+
+    <NUnit ToolPath="$(MSBuildProjectDirectory)\packages\NUnit.2.5.10.11092\tools" 
+           DisableShadowCopy="true" 
+           Assemblies="@(TestAssembly)" 
+           OutputXmlFile="$(MSBuildProjectDirectory)\..\TestResult.xml" />
+  </Target>
+
   <Target Name="Build">
-    <CallTarget Targets="Compile" />
+    <CallTarget Targets="Compile; RunUnitTest" />
   </Target>
 
 </Project>
