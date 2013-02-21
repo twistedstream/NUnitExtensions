@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Company>Twisted Stream Technologies, Inc.</Company>
+    <Product>NUnitExtensions</Product>
+    <Version_Major>1</Version_Major>
+    <Version_Minor>0</Version_Minor>
+    <Version_Revision>0</Version_Revision>
+    <Version_Information>RC</Version_Information>
+  </PropertyGroup>
+</Project>

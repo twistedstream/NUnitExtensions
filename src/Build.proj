@@ -2,27 +2,38 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build</MSBuildCommunityTasksPath>
+    <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
-
-  <!-- Version Number -->
-  <PropertyGroup Condition=" '$(BUILD_NUMBER)' == '' ">
-    <Version>1.0.0.0</Version>
-    <FileVersion>1.0.0.0</FileVersion>
-    <InformationalVersion>1.0.0.0</InformationalVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(BUILD_NUMBER)' != '' ">
-    <!-- Build Server Number -->
-    <Version>1.0.0.0</Version>
-    <FileVersion>$(BUILD_NUMBER)</FileVersion>
-    <InformationalVersion>$(BUILD_NUMBER)</InformationalVersion>
-  </PropertyGroup>
+  <Import Project="$(GlobalAssemblyInfoProjectPath)" Condition="Exists('$(GlobalAssemblyInfoProjectPath)')"/>
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <Company_Padded Condition=" '$(Company)' != '' "> $(Company)</Company_Padded>
+    <Version_Major Condition=" '$(Version_Major)' == '' ">1</Version_Major>
+    <Version_Minor Condition=" '$(Version_Minor)' == '' ">0</Version_Minor>
+    <Version_Revision Condition=" '$(Version_Revision)' == '' ">0</Version_Revision>
+    <Version_Information_Padded Condition=" '$(Version_Information)' != '' "> $(Version_Information)</Version_Information_Padded>
+  </PropertyGroup>
+
+  <Choose>
+    <!-- No build server - use default build number -->
+    <When Condition=" '$(BUILD_NUMBER)' == '' ">
+      <PropertyGroup>
+        <Version_Build>0</Version_Build>
+      </PropertyGroup>
+    </When>
+    <!-- Build number from build server passed in -->
+    <Otherwise>
+      <PropertyGroup>
+        <Version_Build>$(BUILD_NUMBER)</Version_Build>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
 
   <Target Name="Clean">
     <DeleteTree Directories="**\obj\**;**\bin\**" Recursive="True" />
@@ -33,18 +44,30 @@
       <Output TaskParameter="Year" PropertyName="Year" />
     </Time>
 
-    <Message Text="Version: $(Version)"/>
-
     <Attrib Files="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs" ReadOnly="False" />
+
+    <PropertyGroup>
+      <AssemblyVersion>$(Version_Major).$(Version_Minor)</AssemblyVersion>
+      <AssemblyFileVersion>$(AssemblyVersion).$(Version_Revision).$(Version_Build)</AssemblyFileVersion>
+      <AssemblyInformationalVersion>$(AssemblyVersion)$(Version_Information_Padded)</AssemblyInformationalVersion>
+    </PropertyGroup>
+
+    <Message Text="AssemblyInformationalVersion: $(AssemblyInformationalVersion)"/>
+    <Message Text="AssemblyVersion:              $(AssemblyVersion)"/>
+    <Message Text="AssemblyFileVersion:          $(AssemblyFileVersion)"/>
 
     <AssemblyInfo CodeLanguage="CS"
                   OutputFile="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs"
                   GenerateClass="true"
-                  AssemblyCopyright="Copyright © $(Year). All rights reserved."
-                  AssemblyConfiguration="$(BuildConfiguration)"
-                  AssemblyVersion="$(Version)"
-                  AssemblyFileVersion="$(FileVersion)"
-                  AssemblyInformationalVersion="$(InformationalVersion)" />
+                  
+                  AssemblyCompany="$(Company)"
+                  AssemblyProduct="$(Product)"
+                  AssemblyCopyright="Copyright © $(Year)$(Company_Padded). All rights reserved."
+                  AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
+                
+                  AssemblyVersion="$(AssemblyVersion)"
+                  AssemblyFileVersion="$(AssemblyFileVersion)"
+                  AssemblyConfiguration="$(BuildConfiguration)" />
   </Target>
 
   <!-- Projects to Build -->
