@@ -1,9 +1,10 @@
 #NUnitExtensions
-Contains handy base test classes and other extensions useful for TDD using NUnit.
+Handy base test classes and other extensions useful for TDD using NUnit.
 
 ##Getting Started
 
-**COMING SOON:** NuGet package integration
+**COMING SOON:** NuGet package integration!
+
 For now, peform a build (see below) and copy the following binaries into a lib folder in your project:
 
     src\NUnitExtensions\bin\Release\TS.NUnitExtensions.dll
@@ -29,4 +30,4 @@ DependencyContainerTestBase&lt;TDependencyContainer&gt; | A ComponentTestBase&lt
 
 Name | Description
 --- | ---
-ContainsStateConstraint | An NUnit Constraint that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.
+ContainsStateConstraint | An NUnit Constraint that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.  Easily access using the ContainsState.With static method.
