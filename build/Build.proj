@@ -73,8 +73,7 @@
                   AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
                 
                   AssemblyVersion="$(AssemblyVersion)"
-                  AssemblyFileVersion="$(AssemblyFileVersion)"
-                  AssemblyConfiguration="$(BuildConfiguration)" />
+                  AssemblyFileVersion="$(AssemblyFileVersion)" />
   </Target>
 
   <!-- Projects to Build -->
