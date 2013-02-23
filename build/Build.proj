@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build</MSBuildCommunityTasksPath>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)</MSBuildCommunityTasksPath>
     <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
+	<SourceRootPath>$(MSBuildProjectDirectory)\..\src</SourceRootPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
@@ -57,7 +58,7 @@
     <Message Text="AssemblyFileVersion:          $(AssemblyFileVersion)"/>
 
     <AssemblyInfo CodeLanguage="CS"
-                  OutputFile="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs"
+                  OutputFile="$(SourceRootPath)\GlobalAssemblyInfo.cs"
                   GenerateClass="true"
                   
                   AssemblyCompany="$(Company)"
@@ -72,7 +73,7 @@
 
   <!-- Projects to Build -->
   <ItemGroup>
-    <ProjectFiles Include="$(MSBuildProjectDirectory)\**\*.sln">
+    <ProjectFiles Include="$(SourceRootPath)\**\*.sln">
       <Properties>Configuration=$(BuildConfiguration)</Properties>
     </ProjectFiles>
   </ItemGroup>
@@ -82,14 +83,14 @@
   </Target>
 
   <Target Name="RunUnitTest">
-    <CreateItem Include="$(MSBuildProjectDirectory)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
+    <CreateItem Include="$(SourceRootPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
       <Output TaskParameter="Include" ItemName="TestAssembly" />
     </CreateItem>
 
-    <NUnit ToolPath="$(MSBuildProjectDirectory)\packages\NUnit.2.5.10.11092\tools" 
+    <NUnit ToolPath="$(SourceRootPath)\packages\NUnit.2.5.10.11092\tools" 
            DisableShadowCopy="true" 
            Assemblies="@(TestAssembly)" 
-           OutputXmlFile="$(MSBuildProjectDirectory)\..\TestResult.xml" />
+           OutputXmlFile="$(MSBuildProjectDirectory)\TestResult.xml" />
   </Target>
 
   <Target Name="Build">

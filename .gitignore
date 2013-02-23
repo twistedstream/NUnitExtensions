@@ -102,4 +102,4 @@ Desktop.ini
 #####################
 
 /src/GlobalAssemblyInfo.cs
-TestResult.xml
+/build/TestResult.xml
