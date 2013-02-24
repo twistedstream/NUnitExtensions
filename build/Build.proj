@@ -2,9 +2,9 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)</MSBuildCommunityTasksPath>
-	<BuildOutputPath>$(MSBuildProjectDirectory)\out</BuildOutputPath>
+    <BuildOutputPath>$(MSBuildProjectDirectory)\out</BuildOutputPath>
     <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
-	<SourceRootPath>$(MSBuildProjectDirectory)\..\src</SourceRootPath>
+    <SourceRootPath>$(MSBuildProjectDirectory)\..\src</SourceRootPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
@@ -38,8 +38,8 @@
   </Choose>
 
   <Target Name="InitBuildOutput">
-	<DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
-	<MakeDir Directories="$(BuildOutputPath)" />
+    <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
+    <MakeDir Directories="$(BuildOutputPath)" />
   </Target>
   
   <Target Name="Clean">
