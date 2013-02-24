@@ -16,9 +16,11 @@ Run the following command in the [Package Manager Console](http://docs.nuget.org
 ##Current Base Classes
 
 **TestBase**
+
 Base class for all test classes.  Provides simple overrides for TestFixtureSetUp, TestFixtureTearDown, SetUp, and TearDown attributes.
 
 **ComponentTestBase<TComponent>**
+
 A TestBase for test classes that need to test a component, which is a class that uses constructor-based dependency injection.
 
 ```cs
@@ -60,17 +62,18 @@ public class FooTests : ComponentTestBase<Foo>
 ```
 
 **ComponentWithInterfaceTestBase<TComponent, TInterface>**
+
 A ComponentTestBase<TComponent> for test classes that need to test a component that implements an interface.
 
 **DependencyContainerTestBase<TDependencyContainer>**
+
 A ComponentTestBase<TComponent> for test classes that need to test a component that is a dependency container, which is a simple class that exposes all the parameters to its constructor via properties of the same name.
     
 ##Current NUnit Constraints
 
 **ContainsStateConstraint**
-An NUnit Constraint that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.
 
-Easily accessed using the ContainsState.With() static method:
+An NUnit Constraint that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.  Easily accessed using the ContainsState.With() static method:
 
 ```cs
 [Test]
