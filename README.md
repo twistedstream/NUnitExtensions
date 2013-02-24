@@ -3,13 +3,9 @@ Handy base test classes and other extensions useful for TDD using NUnit.
 
 ##Getting Started
 
-**COMING SOON:** NuGet package integration!
+Run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
 
-For now, peform a build (see below) and copy the following binaries into a lib folder in your project:
-
-    src\NUnitExtensions\bin\Release\TS.NUnitExtensions.dll
-    src\NUnitExtensions\bin\Release\TS.NUnitExtensions.pdb
-    src\NUnitExtensions\bin\Release\TS.NUnitExtensions.xml
+    PM> Install-Package NUnitExtensions
 
 ##To build:
 
