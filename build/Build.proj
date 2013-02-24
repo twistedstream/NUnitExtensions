@@ -57,6 +57,7 @@
       <AssemblyVersion>$(Version_Major).$(Version_Minor)</AssemblyVersion>
       <AssemblyFileVersion>$(AssemblyVersion).$(Version_Revision).$(Version_Build)</AssemblyFileVersion>
       <AssemblyInformationalVersion>$(AssemblyVersion)$(Version_Information_Padded)</AssemblyInformationalVersion>
+      <AssemblyCopyright>Copyright © $(Year)$(Company_Padded). All rights reserved.</AssemblyCopyright>
     </PropertyGroup>
 
     <Message Text="AssemblyInformationalVersion: $(AssemblyInformationalVersion)"/>
@@ -69,7 +70,7 @@
                   
                   AssemblyCompany="$(Company)"
                   AssemblyProduct="$(Product)"
-                  AssemblyCopyright="Copyright © $(Year)$(Company_Padded). All rights reserved."
+                  AssemblyCopyright="$(AssemblyCopyright)"
                   AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
                 
                   AssemblyVersion="$(AssemblyVersion)"
@@ -98,8 +99,50 @@
            OutputXmlFile="$(BuildOutputPath)\TestResult.xml" />
   </Target>
   
-  <Target Name="Build">
-    <CallTarget Targets="Compile; RunUnitTest" />
-  </Target>
+  <Target Name="CreatePackage" DependsOnTargets="Version">
+    <!-- create package lib directory -->
+    <PropertyGroup>
+        <BinaryOutputPath>$(BuildOutputPath)\lib\net</BinaryOutputPath>
+    </PropertyGroup>  
+    <MakeDir Directories="$(BinaryOutputPath)" />
+    
+    <!-- copy binaries -->
+    <PropertyGroup>
+        <BinarySourcePath>$(SourceRootPath)\NUnitExtensions\bin\$(BuildConfiguration)</BinarySourcePath>
+        <AssemblyName>TS.NUnitExtensions</AssemblyName>
+    </PropertyGroup>  
+    <ItemGroup>
+        <Binaries Include="$(BinarySourcePath)\$(AssemblyName).dll; $(BinarySourcePath)\$(AssemblyName).xml" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Binaries)" 
+          DestinationFolder="$(BinaryOutputPath)" />
+    
+    <!-- make a copy of the source nuspec file so we can inject version values -->
+    <PropertyGroup>
+        <SpecFilename>NUnitExtensions.nuspec</SpecFilename>
+        <CompleteSpecPath>$(BuildOutputPath)\$(SpecFilename)</CompleteSpecPath>
+    </PropertyGroup>  
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(SpecFilename)" 
+          DestinationFiles="$(CompleteSpecPath)" />
 
+    <!-- inject nuspec file with missing version values -->
+    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
+               XPath="/package/metadata/title"
+               Value="$(Product)" />
+    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
+               XPath="/package/metadata/version"
+               Value="$(AssemblyVersion)" />
+    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
+               XPath="/package/metadata/copyright"
+               Value="$(AssemblyCopyright)" />
+    
+    <!-- build nuget package -->
+    <NuGetPack ToolPath="$(SourceRootPath)\.nuget"
+               File="$(CompleteSpecPath)" 
+               OutputDirectory="$(BuildOutputPath)" />
+  </Target>
+  
+  <Target Name="Build">
+    <CallTarget Targets="Compile; RunUnitTest; CreatePackage" />
+  </Target>
 </Project>

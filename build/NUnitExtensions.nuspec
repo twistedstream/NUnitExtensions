@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>NUnitExtensions</id>
+    <authors>twistedstream</authors>
+    <description>Handy base test classes and other extensions useful for TDD using NUnit.</description>
+    <licenseUrl>https://raw.github.com/twistedstream/NUnitExtensions/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/twistedstream/NUnitExtensions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>NUnit</tags>
+
+    <dependencies>
+      <dependency id="NUnit" version="2.5" />
+      <dependency id="RhinoMocks" version="3.6" />
+    </dependencies>	
+
+    <releaseNotes>Initial release candidate.</releaseNotes>	
+
+	<!-- these properties are populated by the build script -->
+    <title></title>
+    <version></version>
+    <copyright></copyright>
+  </metadata>
+</package>
