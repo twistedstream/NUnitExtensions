@@ -54,8 +54,8 @@
     <Attrib Files="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs" ReadOnly="False" />
 
     <PropertyGroup>
-      <AssemblyVersion>$(Version_Major).$(Version_Minor)</AssemblyVersion>
-      <AssemblyFileVersion>$(AssemblyVersion).$(Version_Revision).$(Version_Build)</AssemblyFileVersion>
+      <AssemblyVersion>$(Version_Major).$(Version_Minor).$(Version_Revision)</AssemblyVersion>
+      <AssemblyFileVersion>$(AssemblyVersion).$(Version_Build)</AssemblyFileVersion>
       <AssemblyInformationalVersion>$(AssemblyVersion)$(Version_Information_Padded)</AssemblyInformationalVersion>
       <AssemblyCopyright>Copyright © $(Year)$(Company_Padded). All rights reserved.</AssemblyCopyright>
     </PropertyGroup>
@@ -102,7 +102,8 @@
   <Target Name="CreatePackage" DependsOnTargets="Version">
     <!-- create package lib directory -->
     <PropertyGroup>
-        <BinaryOutputPath>$(BuildOutputPath)\lib\net</BinaryOutputPath>
+        <PackageOutputPath>$(BuildOutputPath)\package</PackageOutputPath>
+        <BinaryOutputPath>$(PackageOutputPath)\lib\net</BinaryOutputPath>
     </PropertyGroup>  
     <MakeDir Directories="$(BinaryOutputPath)" />
     
@@ -120,7 +121,7 @@
     <!-- make a copy of the source nuspec file so we can inject version values -->
     <PropertyGroup>
         <SpecFilename>NUnitExtensions.nuspec</SpecFilename>
-        <CompleteSpecPath>$(BuildOutputPath)\$(SpecFilename)</CompleteSpecPath>
+        <CompleteSpecPath>$(PackageOutputPath)\$(SpecFilename)</CompleteSpecPath>
     </PropertyGroup>  
     <Copy SourceFiles="$(MSBuildProjectDirectory)\$(SpecFilename)" 
           DestinationFiles="$(CompleteSpecPath)" />
@@ -139,7 +140,7 @@
     <!-- build nuget package -->
     <NuGetPack ToolPath="$(SourceRootPath)\.nuget"
                File="$(CompleteSpecPath)" 
-               OutputDirectory="$(BuildOutputPath)" />
+               OutputDirectory="$(PackageOutputPath)" />
   </Target>
   
   <Target Name="Build">

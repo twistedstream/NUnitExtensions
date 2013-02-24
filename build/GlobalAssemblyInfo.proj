@@ -5,7 +5,7 @@
     <Product>NUnitExtensions</Product>
     <Version_Major>1</Version_Major>
     <Version_Minor>0</Version_Minor>
-    <Version_Revision>0</Version_Revision>
+    <Version_Revision>1</Version_Revision>
     <Version_Information>RC</Version_Information>
   </PropertyGroup>
 </Project>
