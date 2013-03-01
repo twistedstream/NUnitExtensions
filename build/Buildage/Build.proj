@@ -34,6 +34,14 @@
     </Otherwise>
   </Choose>
 
+  <Target Name="ValidateInput">
+    <Error Condition="'$(Input_Company)' == ''" Text="Property 'Input_Company' cannot be empty." />
+    <Error Condition="'$(Input_Product)' == ''" Text="Property 'Input_Product' cannot be empty." />
+    <Error Condition="'$(Input_VersionMajor)' == ''" Text="Property 'Input_VersionMajor' cannot be empty." />
+    <Error Condition="'$(Input_VersionMinor)' == ''" Text="Property 'Input_VersionMinor' cannot be empty." />
+    <Error Condition="'$(Input_VersionRevision)' == ''" Text="Property 'Input_VersionRevision' cannot be empty." />
+  </Target>
+
   <Target Name="InitOutput">
     <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
     <MakeDir Directories="$(BuildOutputPath)" />
@@ -141,6 +149,6 @@
   </Target>
   
   <Target Name="Build">
-    <CallTarget Targets="InitOutput; Compile; RunUnitTest; CreatePackage" />
+    <CallTarget Targets="ValidateInput; InitOutput; Compile; RunUnitTest; CreatePackage" />
   </Target>
 </Project>
