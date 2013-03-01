@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Choose>
+    <!-- No build server - use default build number -->
+    <When Condition=" '$(BUILD_NUMBER)' == '' ">
+      <PropertyGroup>
+        <Version_Build>0</Version_Build>
+      </PropertyGroup>
+    </When>
+    <!-- Build number from build server passed in -->
+    <Otherwise>
+      <PropertyGroup>
+        <Version_Build>$(BUILD_NUMBER)</Version_Build>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <Target Name="Version">
+    <Time>
+      <Output TaskParameter="Year" PropertyName="Version_Year" />
+    </Time>
+
+    <Attrib Files="$(SourceRootPath)\GlobalAssemblyInfo.cs" ReadOnly="False" />
+
+    <PropertyGroup>
+      <Version_AssemblyVersion>$(Input_VersionMajor).$(Input_VersionMinor).$(Input_VersionRevision)</Version_AssemblyVersion>
+      <Version_AssemblyFileVersion>$(Version_AssemblyVersion).$(Version_Build)</Version_AssemblyFileVersion>
+      <Version_VersionInformationPadded Condition=" '$(Input_VersionInformation)' != '' "> $(Input_VersionInformation)</Version_VersionInformationPadded>
+      <Version_AssemblyInformationalVersion>$(Version_AssemblyVersion)$(Version_VersionInformationPadded)</Version_AssemblyInformationalVersion>
+      <Version_CompanyPadded> $(Input_Company)</Version_CompanyPadded>
+      <Version_AssemblyCopyright>Copyright © $(Version_Year)$(Version_CompanyPadded). All rights reserved.</Version_AssemblyCopyright>
+    </PropertyGroup>
+
+    <Message Text="Version_AssemblyInformationalVersion: $(Version_AssemblyInformationalVersion)"/>
+    <Message Text="Version_AssemblyVersion:              $(Version_AssemblyVersion)"/>
+    <Message Text="Version_AssemblyFileVersion:          $(Version_AssemblyFileVersion)"/>
+
+    <AssemblyInfo CodeLanguage="CS"
+                  OutputFile="$(SourceRootPath)\GlobalAssemblyInfo.cs"
+                  GenerateClass="true"
+                  
+                  AssemblyCompany="$(Input_Company)"
+                  AssemblyProduct="$(Input_Product)"
+                  AssemblyCopyright="$(Version_AssemblyCopyright)"
+                  AssemblyInformationalVersion="$(Version_AssemblyInformationalVersion)"
+                
+                  AssemblyVersion="$(Version_AssemblyVersion)"
+                  AssemblyFileVersion="$(Version_AssemblyFileVersion)" />
+  </Target>
+</Project>

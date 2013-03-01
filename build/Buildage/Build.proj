@@ -9,30 +9,11 @@
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
   <Import Project="$(InputFilePath)" />
+  <Import Project="$(MSBuildProjectDirectory)\Version.targets" />
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <Company_Padded Condition=" '$(Input_Company)' != '' "> $(Input_Company)</Company_Padded>
-    <Version_Information_Padded Condition=" '$(Input_VersionInformation)' != '' "> $(Input_VersionInformation)</Version_Information_Padded>
-  </PropertyGroup>
-
-  <Choose>
-    <!-- No build server - use default build number -->
-    <When Condition=" '$(BUILD_NUMBER)' == '' ">
-      <PropertyGroup>
-        <Version_Build>0</Version_Build>
-      </PropertyGroup>
-    </When>
-    <!-- Build number from build server passed in -->
-    <Otherwise>
-      <PropertyGroup>
-        <Version_Build>$(BUILD_NUMBER)</Version_Build>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
 
   <Target Name="ValidateInput">
     <Error Condition="'$(Input_Company)' == ''" Text="Property 'Input_Company' cannot be empty." />
@@ -51,37 +32,6 @@
     <DeleteTree Directories="$(SourceRootPath)\**\obj\**;$(SourceRootPath)\**\bin\**" Recursive="True" />
   </Target>
 
-  <Target Name="Version">
-    <Time>
-      <Output TaskParameter="Year" PropertyName="Year" />
-    </Time>
-
-    <Attrib Files="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs" ReadOnly="False" />
-
-    <PropertyGroup>
-      <AssemblyVersion>$(Input_VersionMajor).$(Input_VersionMinor).$(Input_VersionRevision)</AssemblyVersion>
-      <AssemblyFileVersion>$(AssemblyVersion).$(Version_Build)</AssemblyFileVersion>
-      <AssemblyInformationalVersion>$(AssemblyVersion)$(Version_Information_Padded)</AssemblyInformationalVersion>
-      <AssemblyCopyright>Copyright © $(Year)$(Company_Padded). All rights reserved.</AssemblyCopyright>
-    </PropertyGroup>
-
-    <Message Text="AssemblyInformationalVersion: $(AssemblyInformationalVersion)"/>
-    <Message Text="AssemblyVersion:              $(AssemblyVersion)"/>
-    <Message Text="AssemblyFileVersion:          $(AssemblyFileVersion)"/>
-
-    <AssemblyInfo CodeLanguage="CS"
-                  OutputFile="$(SourceRootPath)\GlobalAssemblyInfo.cs"
-                  GenerateClass="true"
-                  
-                  AssemblyCompany="$(Input_Company)"
-                  AssemblyProduct="$(Input_Product)"
-                  AssemblyCopyright="$(AssemblyCopyright)"
-                  AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
-                
-                  AssemblyVersion="$(AssemblyVersion)"
-                  AssemblyFileVersion="$(AssemblyFileVersion)" />
-  </Target>
-
   <!-- Projects to Build -->
   <ItemGroup>
     <ProjectFiles Include="$(SourceRootPath)\**\*.sln">
@@ -89,7 +39,7 @@
     </ProjectFiles>
   </ItemGroup>
 
-  <Target Name="Compile" DependsOnTargets="Clean;Version">
+  <Target Name="Compile" DependsOnTargets="Clean">
     <MSBuild Projects="@(ProjectFiles)" />
   </Target>
 
@@ -137,10 +87,10 @@
                Value="$(Input_Product)" />
     <XmlUpdate XmlFileName="$(CompleteSpecPath)"
                XPath="/package/metadata/version"
-               Value="$(AssemblyVersion)" />
+               Value="$(Version_AssemblyVersion)" />
     <XmlUpdate XmlFileName="$(CompleteSpecPath)"
                XPath="/package/metadata/copyright"
-               Value="$(AssemblyCopyright)" />
+               Value="$(Version_AssemblyCopyright)" />
     
     <!-- build nuget package -->
     <NuGetPack ToolPath="$(SourceRootPath)\.nuget"
@@ -149,6 +99,6 @@
   </Target>
   
   <Target Name="Build">
-    <CallTarget Targets="ValidateInput; InitOutput; Compile; RunUnitTest; CreatePackage" />
+    <CallTarget Targets="ValidateInput; InitOutput; Version; Compile; RunUnitTest; CreatePackage" />
   </Target>
 </Project>
