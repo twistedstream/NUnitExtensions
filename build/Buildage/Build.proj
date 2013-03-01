@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Company_Padded Condition=" '$(Company)' != '' "> $(Company)</Company_Padded>
-    <Version_Information_Padded Condition=" '$(Version_Information)' != '' "> $(Version_Information)</Version_Information_Padded>
+    <Company_Padded Condition=" '$(Input_Company)' != '' "> $(Input_Company)</Company_Padded>
+    <Version_Information_Padded Condition=" '$(Input_VersionInformation)' != '' "> $(Input_VersionInformation)</Version_Information_Padded>
   </PropertyGroup>
 
   <Choose>
@@ -51,7 +51,7 @@
     <Attrib Files="$(MSBuildProjectDirectory)\GlobalAssemblyInfo.cs" ReadOnly="False" />
 
     <PropertyGroup>
-      <AssemblyVersion>$(Version_Major).$(Version_Minor).$(Version_Revision)</AssemblyVersion>
+      <AssemblyVersion>$(Input_VersionMajor).$(Input_VersionMinor).$(Input_VersionRevision)</AssemblyVersion>
       <AssemblyFileVersion>$(AssemblyVersion).$(Version_Build)</AssemblyFileVersion>
       <AssemblyInformationalVersion>$(AssemblyVersion)$(Version_Information_Padded)</AssemblyInformationalVersion>
       <AssemblyCopyright>Copyright © $(Year)$(Company_Padded). All rights reserved.</AssemblyCopyright>
@@ -65,8 +65,8 @@
                   OutputFile="$(SourceRootPath)\GlobalAssemblyInfo.cs"
                   GenerateClass="true"
                   
-                  AssemblyCompany="$(Company)"
-                  AssemblyProduct="$(Product)"
+                  AssemblyCompany="$(Input_Company)"
+                  AssemblyProduct="$(Input_Product)"
                   AssemblyCopyright="$(AssemblyCopyright)"
                   AssemblyInformationalVersion="$(AssemblyInformationalVersion)"
                 
@@ -126,7 +126,7 @@
     <!-- inject nuspec file with missing version values -->
     <XmlUpdate XmlFileName="$(CompleteSpecPath)"
                XPath="/package/metadata/title"
-               Value="$(Product)" />
+               Value="$(Input_Product)" />
     <XmlUpdate XmlFileName="$(CompleteSpecPath)"
                XPath="/package/metadata/version"
                Value="$(AssemblyVersion)" />
