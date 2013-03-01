@@ -3,12 +3,12 @@
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..</MSBuildCommunityTasksPath>
     <BuildOutputPath>$(MSBuildProjectDirectory)\..\out</BuildOutputPath>
-    <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\..\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
+    <InputFilePath>$(MSBuildProjectDirectory)\..\Input.targets</InputFilePath>
     <SourceRootPath>$(MSBuildProjectDirectory)\..\..\src</SourceRootPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
-  <Import Project="$(GlobalAssemblyInfoProjectPath)" Condition="Exists('$(GlobalAssemblyInfoProjectPath)')"/>
+  <Import Project="$(InputFilePath)" Condition="Exists('$(InputFilePath)')"/>
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
