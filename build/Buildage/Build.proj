@@ -34,7 +34,7 @@
     </Otherwise>
   </Choose>
 
-  <Target Name="InitBuildOutput">
+  <Target Name="InitOutput">
     <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
     <MakeDir Directories="$(BuildOutputPath)" />
   </Target>
@@ -85,7 +85,7 @@
     <MSBuild Projects="@(ProjectFiles)" />
   </Target>
 
-  <Target Name="RunUnitTest" DependsOnTargets="InitBuildOutput">
+  <Target Name="RunUnitTest">
     <CreateItem Include="$(SourceRootPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
       <Output TaskParameter="Include" ItemName="TestAssembly" />
     </CreateItem>
@@ -141,6 +141,6 @@
   </Target>
   
   <Target Name="Build">
-    <CallTarget Targets="Compile; RunUnitTest; CreatePackage" />
+    <CallTarget Targets="InitOutput; Compile; RunUnitTest; CreatePackage" />
   </Target>
 </Project>
