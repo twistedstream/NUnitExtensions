@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
-  <Import Project="$(InputFilePath)" Condition="Exists('$(InputFilePath)')"/>
+  <Import Project="$(InputFilePath)" />
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
@@ -16,9 +16,6 @@
 
   <PropertyGroup>
     <Company_Padded Condition=" '$(Company)' != '' "> $(Company)</Company_Padded>
-    <Version_Major Condition=" '$(Version_Major)' == '' ">1</Version_Major>
-    <Version_Minor Condition=" '$(Version_Minor)' == '' ">0</Version_Minor>
-    <Version_Revision Condition=" '$(Version_Revision)' == '' ">0</Version_Revision>
     <Version_Information_Padded Condition=" '$(Version_Information)' != '' "> $(Version_Information)</Version_Information_Padded>
   </PropertyGroup>
 
