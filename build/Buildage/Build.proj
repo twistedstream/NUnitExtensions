@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)</MSBuildCommunityTasksPath>
-    <BuildOutputPath>$(MSBuildProjectDirectory)\out</BuildOutputPath>
-    <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
-    <SourceRootPath>$(MSBuildProjectDirectory)\..\src</SourceRootPath>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..</MSBuildCommunityTasksPath>
+    <BuildOutputPath>$(MSBuildProjectDirectory)\..\out</BuildOutputPath>
+    <GlobalAssemblyInfoProjectPath>$(MSBuildProjectDirectory)\..\GlobalAssemblyInfo.proj</GlobalAssemblyInfoProjectPath>
+    <SourceRootPath>$(MSBuildProjectDirectory)\..\..\src</SourceRootPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
@@ -123,7 +123,7 @@
         <SpecFilename>NUnitExtensions.nuspec</SpecFilename>
         <CompleteSpecPath>$(PackageOutputPath)\$(SpecFilename)</CompleteSpecPath>
     </PropertyGroup>  
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(SpecFilename)" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\$(SpecFilename)" 
           DestinationFiles="$(CompleteSpecPath)" />
 
     <!-- inject nuspec file with missing version values -->
