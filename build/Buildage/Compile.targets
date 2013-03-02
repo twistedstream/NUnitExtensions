@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Compile_SolutionFiles Include="$(Build_SourceDirPath)\**\*.sln">
+    <Compile_SolutionFiles Include="$(Input_SourceDirPath)\**\*.sln">
       <Properties>Configuration=$(BuildConfiguration)</Properties>
     </Compile_SolutionFiles>
   </ItemGroup>
 
   <Target Name="Clean">
-    <DeleteTree Directories="$(Build_SourceDirPath)\**\obj\**;$(Build_SourceDirPath)\**\bin\**" Recursive="True" />
+    <DeleteTree Directories="$(Input_SourceDirPath)\**\obj\**;$(Input_SourceDirPath)\**\bin\**" Recursive="True" />
   </Target>
 
   <Target Name="Compile" DependsOnTargets="Clean">

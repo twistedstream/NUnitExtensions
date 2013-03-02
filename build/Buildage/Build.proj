@@ -4,7 +4,6 @@
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)</MSBuildCommunityTasksPath>
     <BuildOutputPath>$(MSBuildProjectDirectory)\..\out</BuildOutputPath>
     <InputFilePath>$(MSBuildProjectDirectory)\..\Input.targets</InputFilePath>
-    <Build_SourceDirPath>$(MSBuildProjectDirectory)\..\..\src</Build_SourceDirPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
@@ -30,11 +29,11 @@
   </Target>
   
   <Target Name="RunUnitTest">
-    <CreateItem Include="$(Build_SourceDirPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
+    <CreateItem Include="$(Input_SourceDirPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
       <Output TaskParameter="Include" ItemName="TestAssembly" />
     </CreateItem>
 
-    <NUnit ToolPath="$(Build_SourceDirPath)\packages\NUnit.2.5.10.11092\tools" 
+    <NUnit ToolPath="$(Input_SourceDirPath)\packages\NUnit.2.5.10.11092\tools" 
            DisableShadowCopy="true" 
            Assemblies="@(TestAssembly)" 
            OutputXmlFile="$(BuildOutputPath)\TestResult.xml" />
@@ -50,7 +49,7 @@
     
     <!-- copy binaries -->
     <PropertyGroup>
-        <BinarySourcePath>$(Build_SourceDirPath)\NUnitExtensions\bin\$(BuildConfiguration)</BinarySourcePath>
+        <BinarySourcePath>$(Input_SourceDirPath)\NUnitExtensions\bin\$(BuildConfiguration)</BinarySourcePath>
         <AssemblyName>TS.NUnitExtensions</AssemblyName>
     </PropertyGroup>  
     <ItemGroup>
@@ -79,7 +78,7 @@
                Value="$(Version_AssemblyCopyright)" />
     
     <!-- build nuget package -->
-    <NuGetPack ToolPath="$(Build_SourceDirPath)\.nuget"
+    <NuGetPack ToolPath="$(Input_SourceDirPath)\.nuget"
                File="$(CompleteSpecPath)" 
                OutputDirectory="$(PackageOutputPath)" />
   </Target>

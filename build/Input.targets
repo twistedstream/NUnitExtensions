@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Product information -->
   <PropertyGroup>
     <Input_Company>Twisted Stream Technologies, Inc.</Input_Company>
     <Input_Product>NUnitExtensions</Input_Product>
@@ -7,5 +8,10 @@
     <Input_VersionMinor>0</Input_VersionMinor>
     <Input_VersionRevision>1</Input_VersionRevision>
     <Input_VersionInformation>RC</Input_VersionInformation>
+  </PropertyGroup>
+  
+  <!-- Build configuration -->
+  <PropertyGroup>
+    <Input_SourceDirPath>$(MSBuildProjectDirectory)\..\..\src</Input_SourceDirPath>
   </PropertyGroup>
 </Project>
