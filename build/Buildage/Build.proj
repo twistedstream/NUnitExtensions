@@ -11,6 +11,7 @@
   <Import Project="$(MSBuildProjectDirectory)\Version.targets" />
   <Import Project="$(MSBuildProjectDirectory)\Compile.targets" />
   <Import Project="$(MSBuildProjectDirectory)\UnitTest.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\Package.targets" />
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
@@ -27,50 +28,6 @@
   <Target Name="InitOutput">
     <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
     <MakeDir Directories="$(BuildOutputPath)" />
-  </Target>
-    
-  <Target Name="CreatePackage" DependsOnTargets="Version">
-    <!-- create package lib directory -->
-    <PropertyGroup>
-        <PackageOutputPath>$(BuildOutputPath)\package</PackageOutputPath>
-        <BinaryOutputPath>$(PackageOutputPath)\lib\net</BinaryOutputPath>
-    </PropertyGroup>  
-    <MakeDir Directories="$(BinaryOutputPath)" />
-    
-    <!-- copy binaries -->
-    <PropertyGroup>
-        <BinarySourcePath>$(Input_SourceDirPath)\NUnitExtensions\bin\$(BuildConfiguration)</BinarySourcePath>
-        <AssemblyName>TS.NUnitExtensions</AssemblyName>
-    </PropertyGroup>  
-    <ItemGroup>
-        <Binaries Include="$(BinarySourcePath)\$(AssemblyName).dll; $(BinarySourcePath)\$(AssemblyName).xml" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Binaries)" 
-          DestinationFolder="$(BinaryOutputPath)" />
-    
-    <!-- make a copy of the source nuspec file so we can inject version values -->
-    <PropertyGroup>
-        <SpecFilename>NUnitExtensions.nuspec</SpecFilename>
-        <CompleteSpecPath>$(PackageOutputPath)\$(SpecFilename)</CompleteSpecPath>
-    </PropertyGroup>  
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\$(SpecFilename)" 
-          DestinationFiles="$(CompleteSpecPath)" />
-
-    <!-- inject nuspec file with missing version values -->
-    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
-               XPath="/package/metadata/title"
-               Value="$(Input_Product)" />
-    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
-               XPath="/package/metadata/version"
-               Value="$(Version_AssemblyVersion)" />
-    <XmlUpdate XmlFileName="$(CompleteSpecPath)"
-               XPath="/package/metadata/copyright"
-               Value="$(Version_AssemblyCopyright)" />
-    
-    <!-- build nuget package -->
-    <NuGetPack ToolPath="$(Input_SourceDirPath)\.nuget"
-               File="$(CompleteSpecPath)" 
-               OutputDirectory="$(PackageOutputPath)" />
   </Target>
   
   <Target Name="Build">
