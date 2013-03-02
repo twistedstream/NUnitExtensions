@@ -10,6 +10,7 @@
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.targets"/>
   <Import Project="$(InputFilePath)" />
   <Import Project="$(MSBuildProjectDirectory)\Version.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\Compile.targets" />
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
@@ -28,21 +29,6 @@
     <MakeDir Directories="$(BuildOutputPath)" />
   </Target>
   
-  <Target Name="Clean">
-    <DeleteTree Directories="$(Build_SourceDirPath)\**\obj\**;$(Build_SourceDirPath)\**\bin\**" Recursive="True" />
-  </Target>
-
-  <!-- Projects to Build -->
-  <ItemGroup>
-    <ProjectFiles Include="$(Build_SourceDirPath)\**\*.sln">
-      <Properties>Configuration=$(BuildConfiguration)</Properties>
-    </ProjectFiles>
-  </ItemGroup>
-
-  <Target Name="Compile" DependsOnTargets="Clean">
-    <MSBuild Projects="@(ProjectFiles)" />
-  </Target>
-
   <Target Name="RunUnitTest">
     <CreateItem Include="$(Build_SourceDirPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
       <Output TaskParameter="Include" ItemName="TestAssembly" />
