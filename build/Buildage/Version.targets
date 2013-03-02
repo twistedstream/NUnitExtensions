@@ -20,7 +20,7 @@
       <Output TaskParameter="Year" PropertyName="Version_Year" />
     </Time>
 
-    <Attrib Files="$(SourceRootPath)\GlobalAssemblyInfo.cs" ReadOnly="False" />
+    <Attrib Files="$(Build_SourceDirPath)\GlobalAssemblyInfo.cs" ReadOnly="False" />
 
     <PropertyGroup>
       <Version_AssemblyVersion>$(Input_VersionMajor).$(Input_VersionMinor).$(Input_VersionRevision)</Version_AssemblyVersion>
@@ -36,7 +36,7 @@
     <Message Text="Version_AssemblyFileVersion:          $(Version_AssemblyFileVersion)"/>
 
     <AssemblyInfo CodeLanguage="CS"
-                  OutputFile="$(SourceRootPath)\GlobalAssemblyInfo.cs"
+                  OutputFile="$(Build_SourceDirPath)\GlobalAssemblyInfo.cs"
                   GenerateClass="true"
                   
                   AssemblyCompany="$(Input_Company)"
