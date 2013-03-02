@@ -13,5 +13,6 @@
   <!-- Build configuration -->
   <PropertyGroup>
     <Input_SourceDirPath>$(MSBuildProjectDirectory)\..\..\src</Input_SourceDirPath>
+    <Input_NUnitToolDirPath>$(Input_SourceDirPath)\packages\NUnit.2.5.10.11092\tools</Input_NUnitToolDirPath>
   </PropertyGroup>
 </Project>

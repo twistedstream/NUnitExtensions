@@ -10,6 +10,7 @@
   <Import Project="$(InputFilePath)" />
   <Import Project="$(MSBuildProjectDirectory)\Version.targets" />
   <Import Project="$(MSBuildProjectDirectory)\Compile.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\UnitTest.targets" />
 
   <PropertyGroup Condition=" '$(BuildConfiguration)' == '' ">
     <BuildConfiguration>Release</BuildConfiguration>
@@ -27,18 +28,7 @@
     <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
     <MakeDir Directories="$(BuildOutputPath)" />
   </Target>
-  
-  <Target Name="RunUnitTest">
-    <CreateItem Include="$(Input_SourceDirPath)\**\bin\$(BuildConfiguration)\*.UnitTest.dll">
-      <Output TaskParameter="Include" ItemName="TestAssembly" />
-    </CreateItem>
-
-    <NUnit ToolPath="$(Input_SourceDirPath)\packages\NUnit.2.5.10.11092\tools" 
-           DisableShadowCopy="true" 
-           Assemblies="@(TestAssembly)" 
-           OutputXmlFile="$(BuildOutputPath)\TestResult.xml" />
-  </Target>
-  
+    
   <Target Name="CreatePackage" DependsOnTargets="Version">
     <!-- create package lib directory -->
     <PropertyGroup>
