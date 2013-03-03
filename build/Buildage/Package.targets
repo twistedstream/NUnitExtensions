@@ -1,46 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="CreatePackage" DependsOnTargets="Version">
-    <!-- create package lib directory -->
+    <!-- create generated nuspec file from template -->
     <PropertyGroup>
-        <Package_OutputPath>$(BuildOutputPath)\package</Package_OutputPath>
-        <Package_BinaryDestPath>$(Package_OutputPath)\lib\net</Package_BinaryDestPath>
-    </PropertyGroup>  
-    <MakeDir Directories="$(Package_BinaryDestPath)" />
-    
-    <!-- copy binaries -->
-    <PropertyGroup>
-        <Package_BinarySourcePath>$(Input_SourceDirPath)\NUnitExtensions\bin\$(BuildConfiguration)</Package_BinarySourcePath>
-        <Package_AssemblyName>TS.NUnitExtensions</Package_AssemblyName>
-    </PropertyGroup>  
-    <ItemGroup>
-        <Package_Binaries Include="$(Package_BinarySourcePath)\$(Package_AssemblyName).dll; $(Package_BinarySourcePath)\$(Package_AssemblyName).xml" />
-    </ItemGroup>
-    <Copy SourceFiles="@(Package_Binaries)" 
-          DestinationFolder="$(Package_BinaryDestPath)" />
-    
-    <!-- make a copy of the source nuspec file so we can inject version values -->
-    <PropertyGroup>
-        <Package_SpecFilename>NUnitExtensions.nuspec</Package_SpecFilename>
-        <Package_CompleteSpecPath>$(Package_OutputPath)\$(Package_SpecFilename)</Package_CompleteSpecPath>
-    </PropertyGroup>  
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\$(Package_SpecFilename)" 
-          DestinationFiles="$(Package_CompleteSpecPath)" />
+        <Package_GeneratedSpecFilePath>$(Input_PackageProjectDirPath)\$(Input_PackageProjectName).nuspec</Package_GeneratedSpecFilePath>
+    </PropertyGroup>
+    <Copy SourceFiles="$(Input_PackageTemplateSpecFilePath)" 
+          DestinationFiles="$(Package_GeneratedSpecFilePath)" />
 
-    <!-- inject nuspec file with missing version values -->
-    <XmlUpdate XmlFileName="$(Package_CompleteSpecPath)"
-               XPath="/package/metadata/title"
-               Value="$(Input_Product)" />
-    <XmlUpdate XmlFileName="$(Package_CompleteSpecPath)"
+    <!-- inject version -->
+    <XmlUpdate XmlFileName="$(Package_GeneratedSpecFilePath)"
                XPath="/package/metadata/version"
                Value="$(Version_AssemblyVersion)" />
-    <XmlUpdate XmlFileName="$(Package_CompleteSpecPath)"
+
+    <!-- inject copywrite -->
+    <XmlUpdate XmlFileName="$(Package_GeneratedSpecFilePath)"
                XPath="/package/metadata/copyright"
                Value="$(Version_AssemblyCopyright)" />
     
     <!-- build nuget package -->
-    <NuGetPack ToolPath="$(Input_SourceDirPath)\.nuget"
-               File="$(Package_CompleteSpecPath)" 
-               OutputDirectory="$(Package_OutputPath)" />
+    <PropertyGroup>
+        <Package_ProjectFileName>$(Input_PackageProjectName).csproj</Package_ProjectFileName>
+    </PropertyGroup>
+    <Exec Command="&quot;$(Input_NuGetToolDirPath)\NuGet.exe&quot; pack &quot;$(Package_ProjectFileName)&quot; -OutputDirectory &quot;$(BuildOutputPath)&quot; -Properties Configuration=$(BuildConfiguration) -Verbosity detailed"
+          WorkingDirectory="$(Input_PackageProjectDirPath)" />
+          
+    <!-- delete generated nuspec file -->
+    <Delete Files="$(Package_GeneratedSpecFilePath)" />
   </Target>
 </Project>
