@@ -22,7 +22,7 @@
     <PropertyGroup>
         <Package_ProjectFileName>$(Input_PackageProjectName).csproj</Package_ProjectFileName>
     </PropertyGroup>
-    <Exec Command="&quot;$(Input_NuGetToolDirPath)\NuGet.exe&quot; pack &quot;$(Package_ProjectFileName)&quot; -OutputDirectory &quot;$(BuildOutputPath)&quot; -Properties Configuration=$(BuildConfiguration) -Verbosity detailed"
+    <Exec Command="&quot;$(Input_NuGetToolDirPath)\NuGet.exe&quot; pack &quot;$(Package_ProjectFileName)&quot; -OutputDirectory &quot;$(Build_OutputDirPath)&quot; -Properties Configuration=$(BuildConfiguration) -Verbosity detailed"
           WorkingDirectory="$(Input_PackageProjectDirPath)" />
           
     <!-- delete generated nuspec file -->

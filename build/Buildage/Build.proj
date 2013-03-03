@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)</MSBuildCommunityTasksPath>
-    <BuildOutputPath>$(MSBuildProjectDirectory)\..\out</BuildOutputPath>
+    <Build_OutputDirPath>$(MSBuildProjectDirectory)\..\out</Build_OutputDirPath>
     <InputFilePath>$(MSBuildProjectDirectory)\..\Input.targets</InputFilePath>
   </PropertyGroup>
 
@@ -26,8 +26,8 @@
   </Target>
 
   <Target Name="InitOutput">
-    <DeleteTree Directories="$(BuildOutputPath)" Recursive="True" />
-    <MakeDir Directories="$(BuildOutputPath)" />
+    <DeleteTree Directories="$(Build_OutputDirPath)" Recursive="True" />
+    <MakeDir Directories="$(Build_OutputDirPath)" />
   </Target>
   
   <Target Name="Build">
