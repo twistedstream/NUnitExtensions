@@ -20,30 +20,41 @@
       <Output TaskParameter="Year" PropertyName="Version_Year" />
     </Time>
 
-    <Attrib Files="$(Input_SourceDirPath)\GlobalAssemblyInfo.cs" ReadOnly="False" />
-
+    <!-- Construct version information -->
     <PropertyGroup>
       <Version_AssemblyVersion>$(Input_VersionMajor).$(Input_VersionMinor).$(Input_VersionRevision)</Version_AssemblyVersion>
       <Version_AssemblyFileVersion>$(Version_AssemblyVersion).$(Version_Build)</Version_AssemblyFileVersion>
       <Version_VersionInformationPadded Condition=" '$(Input_VersionInformation)' != '' "> $(Input_VersionInformation)</Version_VersionInformationPadded>
       <Version_AssemblyInformationalVersion>$(Version_AssemblyVersion)$(Version_VersionInformationPadded)</Version_AssemblyInformationalVersion>
       <Version_CompanyPadded> $(Input_Company)</Version_CompanyPadded>
-      <Version_AssemblyCopyright>Copyright © $(Version_Year)$(Version_CompanyPadded). All rights reserved.</Version_AssemblyCopyright>
+      <Version_AssemblyCopyright>Copyright © $(Version_Year)$(Version_CompanyPadded) - All rights reserved.</Version_AssemblyCopyright>
+      <Version_GeneratedAssemblyInfoFileName>AssemblyInfo.buildage.cs</Version_GeneratedAssemblyInfoFileName>
     </PropertyGroup>
 
-    <Message Text="Version_AssemblyInformationalVersion: $(Version_AssemblyInformationalVersion)"/>
-    <Message Text="Version_AssemblyVersion:              $(Version_AssemblyVersion)"/>
-    <Message Text="Version_AssemblyFileVersion:          $(Version_AssemblyFileVersion)"/>
-
+    <Message Text="Common information that will be written to all $(Version_GeneratedAssemblyInfoFileName) files:" Importance="high" />
+    <Message Text="- Assembly Version:       $(Version_AssemblyVersion)"/>
+    <Message Text="- File Version:           $(Version_AssemblyFileVersion)"/>
+    <Message Text="- Informational Version:  $(Version_AssemblyInformationalVersion)"/>
+    <Message Text="- Copyright:              $(Version_AssemblyCopyright)"/>
+    
+    <!-- Build itemgroup with full path to generated AssemblyInfo files -->
+    <ItemGroup>
+        <Version_AssemblyInfoFiles Include="@(Input_ProjectDirs -> '%(FullPath)\$(Version_GeneratedAssemblyInfoFileName)')">
+            <Title>%(AssemblyTitle)</Title>
+            <Description>%(AssemblyDescription)</Description>
+        </Version_AssemblyInfoFiles>
+    </ItemGroup>
+    
+    <!-- Build each AssemblyInfo file in itemgroup -->
+    <Attrib Files="@(Version_AssemblyInfoFiles)" ReadOnly="False" />
     <AssemblyInfo CodeLanguage="CS"
-                  OutputFile="$(Input_SourceDirPath)\GlobalAssemblyInfo.cs"
-                  GenerateClass="true"
-                  
+                  OutputFile="@(Version_AssemblyInfoFiles)"
+                  AssemblyTitle="%(Title)"
+                  AssemblyDescription="%(Description)"
                   AssemblyCompany="$(Input_Company)"
                   AssemblyProduct="$(Input_Product)"
                   AssemblyCopyright="$(Version_AssemblyCopyright)"
                   AssemblyInformationalVersion="$(Version_AssemblyInformationalVersion)"
-                
                   AssemblyVersion="$(Version_AssemblyVersion)"
                   AssemblyFileVersion="$(Version_AssemblyFileVersion)" />
   </Target>

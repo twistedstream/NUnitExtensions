@@ -2,21 +2,42 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- Product information -->
   <PropertyGroup>
-    <Input_Company>Twisted Stream Technologies, Inc.</Input_Company>
     <Input_Product>NUnitExtensions</Input_Product>
+    <Input_Company>Twisted Stream Technologies, Inc.</Input_Company>
     <Input_VersionMajor>1</Input_VersionMajor>
     <Input_VersionMinor>0</Input_VersionMinor>
     <Input_VersionRevision>1</Input_VersionRevision>
     <Input_VersionInformation>RC</Input_VersionInformation>
   </PropertyGroup>
   
-  <!-- Build configuration -->
+  <!-- Build / package configuration -->
   <PropertyGroup>
+    <!-- Root directory of the source code (typically a 'src' directory) -->
     <Input_SourceDirPath>$(MSBuildProjectDirectory)\..\..\src</Input_SourceDirPath>
+    <!-- Directory containing the NUnit executable -->
     <Input_NUnitToolDirPath>$(Input_SourceDirPath)\packages\NUnit.2.5.10.11092\tools</Input_NUnitToolDirPath>
+    <!-- Directory containing the NuGet executable -->
     <Input_NuGetToolDirPath>$(Input_SourceDirPath)\.nuget</Input_NuGetToolDirPath>
+    <!-- Directory of the Visual Studio project that is to be packaged with NuGet -->
     <Input_PackageProjectDirPath>$(Input_SourceDirPath)\NUnitExtensions</Input_PackageProjectDirPath>
+    <!-- Filename (without the .csproj) of the project that is to be packaged with NuGet -->
     <Input_PackageProjectName>NUnitExtensions</Input_PackageProjectName>
+    <!-- Path to the file to be used as the template for generating a final nuspec file -->
     <Input_PackageTemplateSpecFilePath>$(MSBuildProjectDirectory)\..\NUnitExtensions.nuspec.template</Input_PackageTemplateSpecFilePath>
   </PropertyGroup>
+  
+  <!-- Assembly information -->
+  <ItemGroup>
+    <!-- Input_ProjectDirs = directory of each project to generate an AssemblyInfo for -->
+    <!-- Input_ProjectDirs.AssemblyTitle = title of the assembly -->
+    <!-- Input_ProjectDirs.AssemblyDescription = description of the assembly -->
+    <Input_ProjectDirs Include="$(Input_SourceDirPath)\NUnitExtensions">
+        <AssemblyTitle>$(Input_Product)</AssemblyTitle>
+        <AssemblyDescription>Handy base test classes and other extensions useful for TDD using NUnit.</AssemblyDescription>
+    </Input_ProjectDirs>
+    <Input_ProjectDirs Include="$(Input_SourceDirPath)\NUnitExtensions.UnitTest">
+        <AssemblyTitle>$(Input_Product) Unit Tests</AssemblyTitle>
+        <AssemblyDescription>Unit tests for the types in $(Input_Product)</AssemblyDescription>
+    </Input_ProjectDirs>
+  </ItemGroup>  
 </Project>

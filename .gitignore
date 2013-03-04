@@ -101,5 +101,5 @@ Desktop.ini
 ## Project-specific
 #####################
 
-/src/GlobalAssemblyInfo.cs
+AssemblyInfo.buildage.cs
 /build/out

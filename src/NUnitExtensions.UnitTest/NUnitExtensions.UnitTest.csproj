@@ -56,9 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
+    <Compile Include="AssemblyInfo.buildage.cs" />
     <Compile Include="ContainsStateConstraintTests.cs" />
     <Compile Include="ContainsStateExtensionsTests.cs" />
     <Compile Include="ContainsStateResultTests.cs" />

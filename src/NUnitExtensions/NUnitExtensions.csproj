@@ -60,9 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
+    <Compile Include="AssemblyInfo.buildage.cs" />
     <Compile Include="ComponentTestBase.cs" />
     <Compile Include="ComponentWithInterfaceTestBase.cs" />
     <Compile Include="ContainsState.cs" />
