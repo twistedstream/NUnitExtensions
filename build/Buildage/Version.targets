@@ -15,6 +15,7 @@
     </Otherwise>
   </Choose>
 
+  <!-- Generate AssemblyInfo files for projects -->
   <Target Name="Version">
     <Time>
       <Output TaskParameter="Year" PropertyName="Version_Year" />
@@ -45,7 +46,7 @@
         </Version_AssemblyInfoFiles>
     </ItemGroup>
     
-    <!-- Build each AssemblyInfo file in itemgroup -->
+    <!-- Build each AssemblyInfo file in item group -->
     <Attrib Files="@(Version_AssemblyInfoFiles)" ReadOnly="False" />
     <AssemblyInfo CodeLanguage="CS"
                   OutputFile="@(Version_AssemblyInfoFiles)"
