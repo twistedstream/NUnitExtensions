@@ -6,10 +6,12 @@
     </Compile_SolutionFiles>
   </ItemGroup>
 
+  <!-- Clean old compile outputs -->
   <Target Name="Clean">
     <DeleteTree Directories="$(Input_SourceDirPath)\**\obj\**;$(Input_SourceDirPath)\**\bin\**" Recursive="True" />
   </Target>
 
+  <!-- Compile all solutions -->
   <Target Name="Compile" DependsOnTargets="Clean">
     <MSBuild Projects="@(Compile_SolutionFiles)" />
   </Target>
