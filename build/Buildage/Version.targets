@@ -16,7 +16,7 @@
   </Choose>
 
   <!-- Generate AssemblyInfo files for projects -->
-  <Target Name="Version">
+  <Target Name="GenAssemblyInfos">
     <Time>
       <Output TaskParameter="Year" PropertyName="Version_Year" />
     </Time>
