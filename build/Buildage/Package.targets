@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Create the NuGet package -->
   <Target Name="CreatePackage" DependsOnTargets="Version">
-    <!-- create generated nuspec file from template -->
+    <!-- Create generated nuspec file from template -->
     <PropertyGroup>
         <Package_GeneratedSpecFilePath>$(Input_PackageProjectDirPath)\$(Input_PackageProjectName).nuspec</Package_GeneratedSpecFilePath>
     </PropertyGroup>
     <Copy SourceFiles="$(Input_PackageTemplateSpecFilePath)" 
           DestinationFiles="$(Package_GeneratedSpecFilePath)" />
 
-    <!-- inject version -->
+    <!-- Inject version -->
     <XmlUpdate XmlFileName="$(Package_GeneratedSpecFilePath)"
                XPath="/package/metadata/version"
                Value="$(Version_AssemblyVersion)" />
 
-    <!-- inject copywrite -->
+    <!-- Inject copywrite -->
     <XmlUpdate XmlFileName="$(Package_GeneratedSpecFilePath)"
                XPath="/package/metadata/copyright"
                Value="$(Version_AssemblyCopyright)" />
     
-    <!-- build nuget package -->
+    <!-- Build nuget package -->
     <PropertyGroup>
         <Package_ProjectFileName>$(Input_PackageProjectName).csproj</Package_ProjectFileName>
     </PropertyGroup>
     <Exec Command="&quot;$(Input_NuGetToolDirPath)\NuGet.exe&quot; pack &quot;$(Package_ProjectFileName)&quot; -OutputDirectory &quot;$(Build_OutputDirPath)&quot; -Properties Configuration=$(BuildConfiguration) -Verbosity detailed"
           WorkingDirectory="$(Input_PackageProjectDirPath)" />
           
-    <!-- delete generated nuspec file -->
+    <!-- Delete generated nuspec file -->
     <Delete Files="$(Package_GeneratedSpecFilePath)" />
   </Target>
 </Project>
