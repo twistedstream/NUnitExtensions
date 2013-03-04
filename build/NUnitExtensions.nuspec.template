@@ -14,6 +14,7 @@
     <authors>twistedstream</authors>
     <licenseUrl>https://raw.github.com/twistedstream/NUnitExtensions/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/twistedstream/NUnitExtensions</projectUrl>
+    <iconUrl>https://raw.github.com/twistedstream/NUnitExtensions/master/build/Logo-NuGet.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>nunit tdd testing</tags>
     <releaseNotes>Initial release candidate.</releaseNotes>	
