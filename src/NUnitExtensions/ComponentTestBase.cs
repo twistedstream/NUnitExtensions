@@ -44,46 +44,41 @@ namespace TS.NUnitExtensions
         /// </returns>
         protected IDictionary<string, object> GetDependencyParameters()
         {
-            // Get constructor
             var type = typeof (TComponent);
             var constructors = type.GetConstructors();
 
-            // Only support a single constructor
+            // For now we only support components with a single constructor where all dependencies get injected
             if (constructors.Length != 1)
                 throw new NotSupportedException("Component class can only have one constructor.");
 
             var constructor = constructors.First();
 
-            // Get constructor's parameters
             var constructorParameters = constructor.GetParameters();
-
-            // Get valid instances for each parameter
             var values = GetDependencies().ToList();
 
-            // Make sure both collections are the same size
+            // If the constructor parameters don't match what's defined in the concrete test class, we can't perform our tests
             if (values.Count != constructorParameters.Length)
                 throw new NotSupportedException(
                     string.Format("The number of values returned by GetParameters ({0}) does not match the number of constructor parameters on the component ({1}).",
                                   values.Count,
                                   constructorParameters.Length));
 
-            // Build dictionary of parmeter names to dependency values
-            var tuples = new List<Tuple<string, object>>();
+            var parameterNameValues = new List<Tuple<string, object>>();
             for (var index = 0; index < constructorParameters.Length; index++)
             {
                 var parameter = constructorParameters[index];
                 var value = values[index];
 
-                // Make sure value is not null
+                // Concrete test class did not provide us with a non-null value for a constructor parameter
                 if (value == null)
                     throw new InvalidOperationException(
                         string.Format("Dependency value for parameter '{0}' cannot be null.",
                                       parameter.Name));
 
                 var tuple = Tuple.Create(parameter.Name, value);
-                tuples.Add(tuple);
+                parameterNameValues.Add(tuple);
             }
-            return tuples.ToDictionary(s => s.Item1, s => s.Item2);
+            return parameterNameValues.ToDictionary(s => s.Item1, s => s.Item2);
         }
 
         /// <summary>
@@ -94,7 +89,6 @@ namespace TS.NUnitExtensions
         [Test]
         public void Instances_should_require_their_dependencies()
         {
-            // get dependency parameters
             var parameters = GetDependencyParameters();
 
             // Short-circuit pass if class only has a default (parameter-less) constructor

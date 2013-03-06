@@ -61,7 +61,7 @@ namespace TS.NUnitExtensions
                                         typeof (string),
                                         typeof (Guid),
                                         typeof (DateTime),
-                                        typeof (TimeSpan),
+                                        typeof (TimeSpan)
                                     };
 
                     _simpleTypes = new HashSet<Type>(

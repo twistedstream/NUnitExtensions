@@ -57,7 +57,6 @@ namespace TS.NUnitExtensions.UnitTest
                                 };
                 foreach (var @case in cases)
                 {
-                    // return case
                     yield return @case;
 
                     // return Nullable case if a value type

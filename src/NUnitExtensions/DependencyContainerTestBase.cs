@@ -24,11 +24,9 @@ namespace TS.NUnitExtensions
         [Test]
         public void Instances_should_expose_their_dependencies_as_properties()
         {
-            // get dependencies
             var dependencies = GetDependencyParameters();
 
-            // make sure at least one parameter exist
-            if (dependencies.Count() == 0)
+            if (!dependencies.Any())
                 throw new NotSupportedException("A dependency container must have at least one parameter.");
 
             var type = typeof (TDependencyContainer);
@@ -43,7 +41,6 @@ namespace TS.NUnitExtensions
             // make sure a public property exists for each dependency parameter (ignoring case)
             foreach (var dependency in dependencies)
             {
-                // find property
                 var parameterName = dependency.Key.ToLower();
                 if (!propertiesByName.ContainsKey(parameterName))
                     Assert.Fail("No matching property found for dependency parameter '{0}'.",
