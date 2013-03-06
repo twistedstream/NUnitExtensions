@@ -4,12 +4,16 @@ Handy base test classes and other extensions useful for TDD using NUnit.
 ##Getting Started
 
 Run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+```
+PM> Install-Package NUnitExtensions
+```
 
-    PM> Install-Package NUnitExtensions
+##To Build
 
-##To build:
-
-    .\build.cmd
+```
+git submodule update --init
+.\build.cmd
+```
 
 **NOTE:** You should perform an initial build before compiling for the first time in Visual Studio as some non-source-controled code files need to be generated.
 
