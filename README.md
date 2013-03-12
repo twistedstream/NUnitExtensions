@@ -1,5 +1,5 @@
 #NUnitExtensions
-Handy base test classes and other extensions useful for TDD using NUnit.
+Handy base test classes and other extensions useful for TDD using [NUnit](http://nunit.org).
 
 ##Getting Started
 
@@ -21,11 +21,11 @@ git submodule update --init
 
 **TestBase**
 
-Base class for all test classes.  Provides simple overrides for TestFixtureSetUp, TestFixtureTearDown, SetUp, and TearDown attributes.
+Base class for all test classes.  Provides simple overrides for `[TestFixtureSetUp]`, `[TestFixtureTearDown]`, `[SetUp]`, and `[TearDown]` NUnit method [attributes](http://nunit.org/index.php?p=attributes&r=2.6.2).
 
 **ComponentTestBase<TComponent>**
 
-A TestBase for test classes that need to test a component, which is a class that uses constructor-based dependency injection.
+A `TestBase` for test classes that need to test a component, which is a class that uses constructor-based dependency injection.
 
 ```cs
 // Assume: Foo class has IBar and IBaz dependencies, injected through the constructor
@@ -67,17 +67,17 @@ public class FooTests : ComponentTestBase<Foo>
 
 **ComponentWithInterfaceTestBase<TComponent, TInterface>**
 
-A ComponentTestBase<TComponent> for test classes that need to test a component that implements an interface.
+A `ComponentTestBase<TComponent>` for test classes that need to test a component that implements an interface.
 
 **DependencyContainerTestBase<TDependencyContainer>**
 
-A ComponentTestBase<TComponent> for test classes that need to test a component that is a dependency container, which is a simple class that exposes all the parameters to its constructor via properties of the same name.
+A `ComponentTestBase<TComponent>` for test classes that need to test a component that is a dependency container, which is a simple class that exposes all the parameters to its constructor via properties of the same name.
     
 ##Current NUnit Constraints
 
 **ContainsStateConstraint**
 
-An NUnit Constraint that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.  Easily accessed using the ContainsState.With() static method:
+An NUnit `Constraint` that determines if the actual object contains the state of the expected object.  Very useful for state-based testing.  Easily accessed using the `ContainsState.With()` static method:
 
 ```cs
 [Test]
