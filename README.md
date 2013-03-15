@@ -5,7 +5,7 @@ Handy base test classes and other extensions useful for TDD using [NUnit](http:/
 
 Run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
 ```
-PM> Install-Package NUnitExtensions
+PM> Install-Package TS.NUnitExtensions
 ```
 
 ##To Build
